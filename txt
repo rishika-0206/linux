@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# Define version number
+VERSION="v0.1.0"
+
+# Function to display the manual page
+function display_manual {
+    cat <<EOF
+internsctl(1) - Custom Linux Command
+
+NAME
+    internsctl - Perform operations using a custom Linux command
+
+SYNOPSIS
+    internsctl [OPTIONS] [ARGUMENTS]
+
+DESCRIPTION
+    internsctl is a custom Linux command for performing operations.
+
+OPTIONS
+    --help      Display this help message
+    --version   Display the version of internsctl
+
+COMMANDS
+    cpu         Obtain CPU information
+    memory      Obtain memory information
+
+EXAMPLES
+    internsctl --help
+    internsctl --version
+    internsctl cpu getinfo
+    internsctl memory getinfo
+EOF
+}
+
+# Function to get CPU information
+function get_cpu_info {
+    lscpu
+}
+
+# Function to get memory information
+function get_memory_info {
+    free
+}
+
+# Parse command line arguments
+case "$1" in
+    --help)
+        display_manual
+        ;;
+    --version)
+        echo "internsctl $VERSION"
+        ;;
+    cpu)
+        case "$2" in
+            getinfo)
+                get_cpu_info
+                ;;
+            *)
+                echo "Error: Unknown CPU command. Use 'internsctl cpu getinfo' for CPU information."
+                exit 1
+                ;;
+        esac
+        ;;
+    memory)
+        case "$2" in
+            getinfo)
+                get_memory_info
+                ;;
+            *)
+                echo "Error: Unknown memory command. Use 'internsctl memory getinfo' for memory information."
+                exit 1
+                ;;
+        esac
+        ;;
+    *)
+        echo "Error: Unknown option. Use 'internsctl --help' for usage information."
+        exit 1
+        ;;
+esac
+
+exit 0

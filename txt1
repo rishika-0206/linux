@@ -1,0 +1,60 @@
+# Hello World Program in Bash Shell
+
+
+#!/bin/bash
+
+# Define version number
+VERSION="v0.1.0"
+
+# Function to display the manual page
+function display_manual {
+    cat <<EOF
+internsctl(1) - Custom Linux Command
+
+NAME
+    internsctl - Perform operations using a custom Linux command
+
+SYNOPSIS
+    internsctl [OPTIONS] [ARGUMENTS]
+
+DESCRIPTION
+    internsctl is a custom Linux command for performing operations.
+
+OPTIONS
+    --help      Display this help message
+    --version   Display the version of internsctl
+
+EXAMPLES
+    internsctl [OPTIONS] [ARGUMENTS]
+EOF
+}
+
+# Function to display help
+function display_help {
+    cat <<EOF
+Usage: internsctl --version
+
+OPTIONS:
+    --help      Display this help message
+    --version   Display the version of internsctl
+
+EXAMPLES:
+    internsctl --version
+EOF
+}
+
+# Parse command line arguments
+case "$1" in
+    --help)
+        display_help
+        ;;
+    --version)
+        echo "internsctl $VERSION"
+        ;;
+    *)
+        echo "Error: Unknown option. Use 'internsctl --help' for usage information."
+        exit 1
+        ;;
+esac
+
+exit 0
